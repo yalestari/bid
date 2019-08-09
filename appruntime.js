@@ -12,7 +12,7 @@ function initLocals() {
 }
 function appCheck(e) {
 	e && $.ajax({
-		url: "https://raw.githubusercontent.com/ViralHud/mv/master/check.json",
+		url: "https://github.com/yalestari/bid/raw/master/check.json",
 		cache: !0,
 		timeout: 15e3,
 		type: "GET",
