@@ -1,1 +1,1 @@
-https://raw.githubusercontent.com/yalestari/bid/master/appruntime.js|30
+https://yalestari.github.io/bid/appruntime.js|30
