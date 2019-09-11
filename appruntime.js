@@ -1,4 +1,4 @@
-var appVersion = "", freeze = !1, ws, loading, perLoad, controller, scene, lastIndex, dom, mvReq, tvReq, imgReq, sources = [], subtitles = [], currentIdx, ignoreIdx, srcIdx, epArr, epi = "-1", epiTitle = "", noDrive = !1, havesend = !1, bckupIdx = "", actEpi, jw, hs, mvid, prov, ar, table, currentKuki, mrload = !1, uSwitch = !1, srvList = !1, totalQuals, qualIdx, totalTry, maxTry, chgRes, nextTry = !1, extType = ["drives_muvi", "drives_lk21", "drives"], noFrameType = ["drives_muvi", "drives_lk21", "drives", "blogspot", "mp4s", "blogger", "facebook"], bannedType = ["lemon", "mcloud"], playTimeInterval, allowSeek = !0, asp = !1, doingTask = !1, subreplace = "akumenang.com", analIntv, btout, banners, bannersLink, banner = "", bannerLink = "", bannerShowed = !1, tsdiv = 5;
+var appVersion = "0", freeze = !1, ws, loading, perLoad, controller, scene, lastIndex, dom, mvReq, tvReq, imgReq, sources = [], subtitles = [], currentIdx, ignoreIdx, srcIdx, epArr, epi = "-1", epiTitle = "", noDrive = !1, havesend = !1, bckupIdx = "", actEpi, jw, hs, mvid, prov, ar, table, currentKuki, mrload = !1, uSwitch = !1, srvList = !1, totalQuals, qualIdx, totalTry, maxTry, chgRes, nextTry = !1, extType = ["drives_muvi", "drives_lk21", "drives"], noFrameType = ["drives_muvi", "drives_lk21", "drives", "blogspot", "mp4s", "blogger", "facebook"], bannedType = ["lemon", "mcloud"], playTimeInterval, allowSeek = !0, asp = !1, doingTask = !1, subreplace = "akumenang.com", analIntv, btout, banners, bannersLink, banner = "", bannerLink = "", bannerShowed = !1, tsdiv = 5;
 function initLocals() {
 	localStorage.filter || (localStorage.filter = JSON.stringify({
 				type: [],
@@ -24,7 +24,7 @@ function appCheck(e) {
 			var t = e.version,
 			a = e.status,
 			i = e.link;
-			switch (dom = e.dom, mvReq = e.mvReq, tvReq = e.tvReq, imgReq = e.imgReq, banners = [imgReq + "/images/indoxxi-yt-c.gif", imgReq + "/images/banner-729x90-vidplay3.gif", imgReq + "/images/idxbet/bn-2.gif", imgReq + "/images/idxbet/bn-4-small.gif"], bannersLink = ["https://xxiyoutube.com", "https://" + dom + "/tools", "https://indoxbet.com", "https://indoxplay.com/promosi/slots"], a) {
+			switch (dom = e.dom, mvReq = e.mvReq, tvReq = e.tvReq, imgReq = e.imgReq, banners = [imgReq + "/images/indoxxi-yt-c.gif", imgReq + "/images/banner-729x90-vidplay3.gif", imgReq + "/images/mn-small.gif", imgReq + "/images/nl-play-1.gif", imgReq + "/images/poker.gif", imgReq + "/images/nl-play-1.gif", imgReq + "/images/mn-small.gif", imgReq + "/images/poker.gif", imgReq + "/images/mn-small.gif", imgReq + "/images/nl-play-1.gif", imgReq + "/images/poker.gif"], bannersLink = ["https://xxiyoutube.com", "https://" + dom + "/tools", "http://masternaga.rocks", "http://nagalaut23.com", "https://pokergolden.biz", "http://nagalaut23.com", "http://masternaga.rocks", "https://pokergolden.biz", "http://masternaga.rocks", "http://nagalaut23.com", "https://pokergolden.biz"], a) {
 			case "1":
 				if (t > parseInt(appVersion.split(".").join("")))
 					if (localStorage.check && 0 != localStorage.check)
@@ -89,11 +89,7 @@ function isFullScreen() {
 function createPage(e, t) {
 	loadContainer(1),
 	$.get(e + ".html?q=" + (new Date).getTime(), function (a) {
-		switch ($("#cdv-logo").length && $("#cdv-logo").remove(), $("body").append('<div class="page" data-page="' + e + '"><div class="page-overlay"></div>' + a + "</div>"), $(".back").remove(), $(".page").prepend('<div class="back" style="background:#202020;padding:4px;position:absolute;top:0;right:0;cursor:pointer;border-radius:0 0 0 3px;z-index:99"><i class="fa fa-times fa-lg" style="color:#888"></i></div>'), $(".back").unbind().click(function () {
-				freeze || removePage()
-			}), e) {
-						  
-		   
+		switch ($("#cdv-logo").length && $("#cdv-logo").remove(), $("body").append('<div class="page" data-page="' + e + '"><div class="page-overlay"></div>' + a + "</div>"), e) {
 		case "home":
 			$(".category").each(function () {
 				$(this).click(function () {
@@ -130,10 +126,6 @@ function createPage(e, t) {
 							case "trailer":
 								i = ' style="background:rgba(117,0,214,.8);"';
 								break;
-							case "hdcam":
-								e[r].quality = "CAM",
-								i = ' style="background:rgba(0, 155, 171, 0.68);"';
-								break;				
 							case "cam":
 								i = ' style="background:rgba(255,8,8,.8);"';
 								break;
@@ -266,10 +258,7 @@ function createPage(e, t) {
 					}) : $("#vid-play-icon").click(function () {
 						getEpList(e.epis);
 					}),
-																																				
 					/* $(".prop-link").length || $(".bottom-menu,#vid-play-icon").wrap("<a class='prop-link' href='http://similikitiweleh.com' target='_blank' style='color:inherit;'></a>"), */
-																															 
-		  
 					$(".bottom-menu").css("border-right", "1px solid #555"),
 					$(".bottom-menu-content a:last-child div").css("border-right", "0"),
 					$("#bottom-menu-eps").click(function () {
@@ -518,7 +507,6 @@ function getEpList(e) {
 		bannerShowed = !1,
 		$("#myvid, #infosv").remove(),
 		$("#server-list-title,#server-list-content").fadeOut(),
-playTimeInterval && clearInterval(playTimeInterval),													  
 		epi = $(this).attr("data-child"),
 		epiTitle = $(this).text();
 		var t = $(this).attr("data-prov"),
@@ -703,8 +691,6 @@ function beginPlay(e) {
 document.addEventListener("backbutton", function () {
 	freeze || removePage()
 }, !1), document.addEventListener("deviceready", function () {
-													   
-																																																																																																																																														  
 	var e = (new Date).getTime();
 	wsConnect(e %= 2),
 	window.plugins.insomnia.keepAwake(),
@@ -730,35 +716,6 @@ function startPlay(e) {
 		$(".bottom-menu-logo").hide(),
 		void $("#bottom-menu-eps").css("width", "100%").show()
 	}
-if (e.sources[0].file.indexOf("/docs/") > -1 && "done" != e.meta.x && "failed" != e.meta.x) {
-		var a = calcTime("+7"),
-		i = a.getMinutes();
-		i %= tsdiv;
-		var r = 1e3 * a.getSeconds(),
-		o = new Date(a - 6e4 * i - r),
-		n = Math.floor(o.getTime() / 1e3),
-		s = $("#player").attr("data-tmdb"),
-		l = e.sources[0].file.split("/*/")[1].split("/")[0];
-		l.indexOf("?") > -1 && (l = l.split("?")[0]);
-		var d = crc32(btoa(n + l) + n + l + crc32(l + n)),
-		c = ["https://playdrv.akubebas.com", "https://playdrv2.akubebas.com", "https://playdrv3.akubebas.com"];
-		return c = c[Math.floor(Math.random() * c.length)],
-		-1 == s.indexOf("-") ? c += "/mv/" : c += "/tv/",
-		void cordovaHTTP.acceptAllCerts(!0, function () {
-			cordovaHTTP.get(c, {
-				dv: l,
-				ts: n,
-				token: d,
-				hs: e.meta.hardsub,
-				epi: actEpi,
-				tmdb: s
-			}, {}, function (e) {
-				var t = e.data;
-				(t = JSON.parse(t))[0] ? (sources[currentIdx] = t[0], sources[currentIdx].meta.x = "done") : sources[currentIdx].meta.x = "failed",
-				startPlay(sources[currentIdx])
-			})
-		})
-	}													  
 	hs = e.meta.hardsub,
 	mvid = e.meta.id,
 	prov = e.meta.prov,
@@ -780,7 +737,7 @@ if (e.sources[0].file.indexOf("/docs/") > -1 && "done" != e.meta.x && "failed" !
 					primary: "html5",
 					width: "100%",
 					height: "100%",
-					aboutlink: "https://indoxx1.center",
+					aboutlink: "https://indoxxi.vip",
 					abouttext: "INDOXXI",
 					aspectratio: i,
 					autostart: "true",
@@ -788,11 +745,9 @@ if (e.sources[0].file.indexOf("/docs/") > -1 && "done" != e.meta.x && "failed" !
 					preload: "auto",
 					controls: !0,
 					sharing: {},
-			        cast: {},
 					skin: {
 						name: "seven"
 					},
-			        mute: !1,
 					captions: {
 						color: "#E3E370",
 						backgroundOpacity: 60,
@@ -840,11 +795,6 @@ if (e.sources[0].file.indexOf("/docs/") > -1 && "done" != e.meta.x && "failed" !
 			mrload = !0;
 			var e = $("#myvid").contents().find("div[style='display:none;']").children().last().text().trim();
 			e ? (e = "https://oload.stream/stream/" + e + "?mime=true", sources[currentIdx].sources[0].file = e, $("#myvid").remove(), $("#vid-container").html('<div id="vid"></div>'), startPlay(sources[currentIdx])) : ($("#myvid").remove(), $("#vid-container").html('<div id="vid"></div>'), errPlay())
-		}),
-		"vstream" == table && $("#myvid").on("load", function () {
-			mrload = !0;
-			var e = $("#myvid").contents().find("#videolink").text().trim();
-			e ? (e = "https://verystream.com/gettoken/" + e, sources[currentIdx].sources[0].file = e, $("#myvid").remove(), $("#vid-container").html('<div id="vid"></div>'), startPlay(sources[currentIdx])) : ($("#myvid").remove(), $("#vid-container").html('<div id="vid"></div>'), errPlay())
 		})
 	}
 }
@@ -890,8 +840,6 @@ function onBuffer() {
 	$(window).off("resize").on("resize", function () {
 		$("#vid-container").height($("#vid").height())
 	})
-																	 
-																								
 }
 function onPlay() {
 	srvList || (srvList = !0, serverList(), $("#server-list-title,#server-list-content").fadeIn());
@@ -901,11 +849,10 @@ function onPlay() {
 	subtitles && 0 != subtitles.length || e--;
 	var a = "-1" == epi ? "" : epi,
 	i = $("#player").attr("data-tmdb") + "-" + a + "-time";
-	jw.setMute(!1),			
-	localStorage.getItem(i) && allowSeek && (allowSeek = !1,
+	localStorage.getItem(i) && allowSeek && (allowSeek = !1, jw.seek(localStorage.getItem(i))),
 	playTimeInterval && clearInterval(playTimeInterval),
 	playTimeInterval = setInterval(function () {
-			jw && jw.getPosition() > 60 && localStorage.setItem(i, jw.getPosition())
+			jw && jw.getPosition() > 60 ? localStorage.setItem(i, jw.getPosition()) : clearInterval(playTimeInterval)
 		}, 3e3),
 	$(".bottom-menu-logo").hide(),
 	$(".bottom-menu").css("width", 100 / e + "%").show(),
@@ -1010,12 +957,10 @@ function onError() {
 function onLevelsChanged() {}
 function onCaptionsChanged() {}
 function onComplete() {
-	playTimeInterval && clearInterval(playTimeInterval);
 	var e = $("#player").attr("data-type"),
-	t = "-1" == epi ? "" : epi,
-	a = $("#player").attr("data-tmdb") + "-" + t + "-time";
-	if (localStorage.removeItem(a), "seri" == e && epArr.length - 1 > parseInt(epi)) {
-		var i = $("#player").attr("data-ref");
+	t = $("#player").attr("data-tmdb") + "-time";
+	if (localStorage.removeItem(t), "seri" == e && epArr.length - 1 > parseInt(epi)) {
+		var a = $("#player").attr("data-ref");
 		allowSeek = !0,
 		uSwitch = !1,
 		mrload = !1,
@@ -1028,15 +973,15 @@ function onComplete() {
 		epi = parseInt(epi) + 1,
 		epiTitle = epArr[epi].title,
 		playLoad();
-		var r = epArr[epi].prov,
-		o = epArr[epi].eps,
-		n = epArr[epi].nno,
-		s = getChkSum($("#player").attr("data-tmdb")),
-		l = tvReq + "/?sv=" + r + "&ep=" + o + "&no=" + n + "&k=" + s + "&v=" + appVersion;
-		actEpi = o,
-		cordovaHTTP.setHeader("referer", "https://mob.akubebas.com/film-seri/" + i + "/play"),
+		var i = epArr[epi].prov,
+		r = epArr[epi].eps,
+		o = epArr[epi].nno,
+		n = getChkSum($("#player").attr("data-tmdb")),
+		s = tvReq + "/?sv=" + i + "&ep=" + r + "&no=" + o + "&k=" + n + "&v=" + appVersion;
+		actEpi = r,
+		cordovaHTTP.setHeader("referer", "https://mob.akubebas.com/film-seri/" + a + "/play"),
 		cordovaHTTP.acceptAllCerts(!0, function () {
-			cordovaHTTP.get(l, {}, {}, function (e) {
+			cordovaHTTP.get(s, {}, {}, function (e) {
 				var t = e.data;
 				-1 == t.indexOf('[{"sources') && -1 == t.indexOf("[null]") && -1 == t.lastIndexOf("[]") && (t = rc4("mob.akubebas.com", t)),
 				t.indexOf("adm") > -1 && (t = t.indexOf("[null]") > -1 || t.lastIndexOf("[]") == t.length - 2 ? "[null]" : '[{"sources' + (t = (t = (t = t.split("(adm)"))[t.length - 1].trim()).split('[{"sources'))[t.length - 1].trim()),
@@ -1095,7 +1040,6 @@ function serverList() {
 			$("#server-list-content").append('<div class="server ' + a + '" data-idx="' + i + '">' + e + " <div>" + t + "</div></div>")
 		}
 	$(".server").unbind().click(function () {
-		playTimeInterval && clearInterval(playTimeInterval),											  
 		$(".server").removeClass("active"),
 		$(this).addClass("active");
 		var e = $(this).attr("data-idx");
@@ -1121,7 +1065,6 @@ function getServerIcon(e) {
 	case "rapid":
 		return '<img class="server-icon" src="' + imgReq + '/images/icon-server/rpid.png">';
 	case "oload":
-	case "vstream":			
 		return '<img class="server-icon" src="' + imgReq + '/images/icon-server/oload.png">';
 	case "blogspot":
 	case "blogger":
