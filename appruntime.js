@@ -99,7 +99,7 @@ function createPage(e, t) {
 				})
 			}),
 			$.ajax({
-				url: "https://m.akubebas.com/api/featured.php",
+				url: "https://mob.akubebas.com/api/featured.php",
 				cache: !1,
 				timeout: 15e3,
 				type: "GET",
@@ -182,7 +182,7 @@ function createPage(e, t) {
 			$("#player").attr("data-type", i),
 			$("#player").attr("data-ref", t.url),
 			$.ajax({
-				url: "https://m.akubebas.com/api/mvdata.php",
+				url: "https://mob.akubebas.com/api/mvdata.php",
 				cache: !1,
 				timeout: 15e3,
 				type: "GET",
@@ -248,7 +248,7 @@ function createPage(e, t) {
 										clearTimeout(r);
 										var t = e.data;
 										"[dmca]" == t && (t = "[null]"),
-										-1 == t.indexOf('[{"sources') && -1 == t.indexOf("[null]") && -1 == t.lastIndexOf("[]") && (t = rc4("m.akubebas.com", t)),
+										-1 == t.indexOf('[{"sources') && -1 == t.indexOf("[null]") && -1 == t.lastIndexOf("[]") && (t = rc4("mob.akubebas.com", t)),
 										t.indexOf("adm") > -1 && (t = t.indexOf("[null]") > -1 || t.lastIndexOf("[]") == t.length - 2 ? "[null]" : '[{"sources' + (t = (t = (t = t.split("(adm)"))[t.length - 1].trim()).split('[{"sources'))[t.length - 1].trim()),
 										beginPlay(JSON.parse(t))
 									}
@@ -331,7 +331,7 @@ function createPage(e, t) {
 			n = t.filter ? t.filter : "";
 			t.xcountry && t.xcountry;
 			$.ajax({
-				url: "https://m.akubebas.com/api/movies.php",
+				url: "https://mob.akubebas.com/api/movies.php",
 				cache: !1,
 				timeout: 15e3,
 				type: "GET",
@@ -521,7 +521,7 @@ function getEpList(e) {
 			cordovaHTTP.get(o, {}, {}, function (e) {
 				var t = e.data;
 				"[dmca]" == t && (t = "[null]"),
-				-1 == t.indexOf('[{"sources') && -1 == t.indexOf("[null]") && -1 == t.lastIndexOf("[]") && (t = rc4("m.akubebas.com", t)),
+				-1 == t.indexOf('[{"sources') && -1 == t.indexOf("[null]") && -1 == t.lastIndexOf("[]") && (t = rc4("mob.akubebas.com", t)),
 				t.indexOf("adm") > -1 && (t = t.indexOf("[null]") > -1 || t.lastIndexOf("[]") == t.length - 2 ? "[null]" : '[{"sources' + (t = (t = (t = t.split("(adm)"))[t.length - 1].trim()).split('[{"sources'))[t.length - 1].trim()),
 				beginPlay(JSON.parse(t))
 			})
@@ -540,7 +540,7 @@ function getRecommends() {
 		border: "0"
 	}).removeAttr("onclick").text("Mengambil.."),
 	$.ajax({
-		url: "https://m.akubebas.com/api/featured.php",
+		url: "https://mob.akubebas.com/api/featured.php",
 		cache: !1,
 		timeout: 15e3,
 		type: "GET",
@@ -594,7 +594,7 @@ function getRecommends() {
 }
 function getMoreMovies(e) {
 	$.ajax({
-		url: "https://m.akubebas.com/api/movies.php",
+		url: "https://mob.akubebas.com/api/movies.php",
 		cache: !1,
 		timeout: 15e3,
 		type: "GET",
@@ -983,7 +983,7 @@ function onComplete() {
 		cordovaHTTP.acceptAllCerts(!0, function () {
 			cordovaHTTP.get(s, {}, {}, function (e) {
 				var t = e.data;
-				-1 == t.indexOf('[{"sources') && -1 == t.indexOf("[null]") && -1 == t.lastIndexOf("[]") && (t = rc4("m.akubebas.com", t)),
+				-1 == t.indexOf('[{"sources') && -1 == t.indexOf("[null]") && -1 == t.lastIndexOf("[]") && (t = rc4("mob.akubebas.com", t)),
 				t.indexOf("adm") > -1 && (t = t.indexOf("[null]") > -1 || t.lastIndexOf("[]") == t.length - 2 ? "[null]" : '[{"sources' + (t = (t = (t = t.split("(adm)"))[t.length - 1].trim()).split('[{"sources'))[t.length - 1].trim()),
 				beginPlay(JSON.parse(t))
 			})
